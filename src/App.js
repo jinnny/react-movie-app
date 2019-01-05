@@ -83,9 +83,11 @@ _callApi = () => {
 }
 
   render() {
+    const {movies} = this.state;
     return (
-      <div className="App">
-        {this.state.movies ? this._renderMovies() : 'Loading'}
+      <div className={movies ? "App" : "App--loading"}>
+      {/* state에 movies가 있으면, APP class를 붙이고, 없으면 App--loading 클래스(처음에는 무조건 없기때문에, App--loading클래스가 붙고, setState로 내용을 추가해줬기에 movies가 존재) */}
+        {movies ? this._renderMovies() : 'Loading'}
         {/* 데이터가 있는지 체크 - true의 경우 함수 호출, false 의 경우 로딩 메시지 띄우기 */}
         {/* 이 부분이 먼저 존재해야하는이유 -> state가 선언되어 있지 않고, 랜더링 후에 setState을 통해 선언했기때문 (setState을 사용한 경우에는 그 후에 한번더 render()가 일어나기 때문)*/}
       </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import LinesEllipsis from 'react-lines-ellipsis'
 import './Movie.css';
 
 // smart (class 컴포넌트) this 필요, state 있음
@@ -35,24 +36,30 @@ import './Movie.css';
 function Movie({title,poster,genres,synopsis}){
     return (
         <section className="Movie">
-        <div className="Movie__poster">
+        <div className="Movie__Column Movie__poster">
             <MoviePoster poster={poster} alt={title}/>
         </div>
-        <div className="Movie__content">
+        <div className="Movie__Column">
             <h1>{title}</h1>
-            <mark className="Movie__Gener">
+            <mark className="Movie__Genres">
               {genres.map((genre, index) => <MovieGenre genre={genre} key={index}/>)}
             </mark>
-            <p className="Movie__Synposis">
-                {synopsis}
-            </p>
+            <div className="Movie__Synposis">
+                <LinesEllipsis
+                text={synopsis}
+                maxLine='3'
+                ellipsis='...'
+                trimRight
+                basedOn='letters'
+                />
+            </div>
         </div>
     </section>
     )
 }
 function MoviePoster({poster, alt}){
     return (
-        <img src={poster} alt={alt} title={alt} className="Movie Poster" /> 
+        <img src={poster} alt={alt} title={alt} className="Movie__Poster" /> 
     )
 }
 
@@ -73,7 +80,7 @@ MoviePoster.prototypes = {
     poster: PropTypes.string.isRequired
 }
 
-MovieGenre.PropTypes={
+MovieGenre.prototypes={
     genre: PropTypes.string.isRequired
 }
 
